@@ -3,13 +3,13 @@
     <h1>Async Generator Progress Bar</h1>
     <hr />
     <div id="loadmsg" hidden="true">Loading... please wait.</div>
-    <div id='msg' />
     <div class="progress container mybar" style="width:80%">
       <span id="spinspan" hidden="true" class="spinner-border spinner-border-sm text-danger"></span>
-      <div id="bar" class="progress-bar bg-success" style="width:0%">
+      <div id="bar" class="progress-bar bg-success mybar" style="width:0%">
         {{ precise(state.loaded, 4) }}%
       </div>
     </div>
+    <div id='msg' />
   </div>
 </template>
 
@@ -81,11 +81,25 @@ a {
 }
 
 .mybar {
-  box-shadow: 2px 2px 2px black, -2px -2px 10px rgb(187, 183, 247);
+  box-shadow: rgb(18, 18, 46) 0px 50px 100px -20px,
+  rgb(51, 27, 27) 0px 30px 60px -30px,
+  rgba(20, 63, 11, 0.979) 0px -2px 6px 0px inset;
+  border-radius: 5px;
 }
 
 #spinspan {
   display: inline;
   position:sticky;
 }
+
+#msg {
+  font-family: fantasy;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+  rgba(240, 127, 127, 0.3) 0px 30px 60px -30px,
+  rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  margin: 50px;
+  padding: 5px;
+
+}
 </style>
+
