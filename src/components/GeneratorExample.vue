@@ -5,7 +5,7 @@
     <div id="loadmsg" hidden="true">Loading... please wait.</div>
     <div id='msg' />
     <div class="progress container mybar" style="width:80%">
-        <span id="spinspan" hidden="true" class="spinner-border spinner-border-sm text-danger"></span>
+      <span id="spinspan" hidden="true" class="spinner-border spinner-border-sm text-danger"></span>
       <div id="bar" class="progress-bar bg-success" style="width:0%">
         {{ precise(state.loaded, 4) }}%
       </div>
@@ -15,9 +15,6 @@
 
 <script setup>
 import { defineProps, onMounted, reactive } from 'vue'
-let data = {
-  busy: false,
-}
 defineProps({
   // msg: String
 })
@@ -31,11 +28,11 @@ onMounted(hook => {
 });
 
 const gen = () => {
-  let count = state.max;
-  let msg = document.getElementById('msg');
-  let spin = document.getElementById('spinspan');
-  data.busy = true;
+  let count   = state.max;
+  let msg     = document.getElementById('msg');
+  let spin    = document.getElementById('spinspan');
   spin.hidden = false;
+
   async function* progress() {
     while (--count) {
       // mimic multiple requests to a server
@@ -49,11 +46,11 @@ const gen = () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     msg.innerHTML = 'done';
-    data.busy = false;
-    spin.hidden = true;
-    state.loaded = 100;
+    spin.hidden   = true;
+    state.loaded  = 100;
+
     document.getElementById('bar').style.width = `${state.loaded}%`;
-    document.getElementById('loadmsg').hidden = true;
+    document.getElementById('loadmsg').hidden  = true;
   }
   const progressbar = progress();
   (async () => {
@@ -69,7 +66,7 @@ const gen = () => {
         bar.classList.add('bg-danger');
       }
       bar.style.width = `${state.loaded}%`;
-      msg.innerHTML = `count:  ${val.count} - took ${precise(val.took, 4)}`;
+      msg.innerHTML   = `count:  ${val.count} - took ${precise(val.took, 4)}`;
       // console.log(msg.innerHTML);
     }
   })();
