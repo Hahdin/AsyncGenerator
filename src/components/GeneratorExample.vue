@@ -10,8 +10,6 @@
         {{ precise(state.loaded, 4) }}%
       </div>
     </div>
-
-
   </div>
 </template>
 
@@ -62,11 +60,11 @@ const gen = () => {
     for await (const val of progressbar) {
       state.loaded = (state.max - val.count) / state.max * 100;
       const bar = document.getElementById('bar');
-      if (state.loaded === 50) {
+      if (state.loaded >= 50) {
         bar.classList.remove('bg-success');
         bar.classList.add('bg-warning');
       }
-      if (state.loaded === 80) {
+      if (state.loaded >= 80) {
         bar.classList.remove('bg-warning');
         bar.classList.add('bg-danger');
       }
