@@ -2,10 +2,6 @@
   <div class="jumbotron title-box">
     <h1 class="mytitle">Async Generator Progress Bar
     </h1>
-    <div id="loadmsg" hidden="true">
-      Loading... please wait.
-      <span id="spinspan-small" class="spinner-border spinner-border-sm text-success"></span>
-    </div>
     <hr />
     <div class="progress container mybar-container" style="width:80%">
       <div id="bar" class="progress-bar mybar" style="width:0%">
@@ -13,6 +9,10 @@
       </div>
     </div>
     <div id='msg' />
+    <div id="loadmsg" hidden="true">
+      Loading... please wait.
+      <span id="spinspan-small" class="spinner-border spinner-border-sm text-success"></span>
+    </div>
   </div>
 </template>
 
@@ -39,10 +39,12 @@ const gen = () => {
   let msg     = document.getElementById('msg');
 
   async function* progress() {
+    let total = 0;
     while (--count) {
       // mimic multiple requests to a server
       const delay =  Math.round(500 * Math.random());
       await new Promise(resolve => setTimeout(resolve, delay));
+      total += delay;
 
       yield { count: count, took: `${delay / 1000} s` };
     }
@@ -50,7 +52,7 @@ const gen = () => {
     // 1 sec pause before finish
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    msg.innerHTML = `Done: loaded ${state.max} items.`;
+    msg.innerHTML = `Done: loaded ${state.max} items in ${total / 1000}s`;
     state.loaded  = 100;
 
     document.getElementById('bar').style.width = `${state.loaded}%`;
@@ -78,11 +80,9 @@ const state = reactive({ count: 0, loaded: 0, max: Math.round(Math.random() * 20
   --con-height: 50px;
   --percentage: 0;
   --text-shadow: 0 1px 0 #ccc, 
-               0 2px 0 #bdbdbd,
-               0 3px 0 rgb(165, 164, 164),
-               0 4px 0 #838181,
-               0 5px 0 rgb(121, 121, 121),
-               0 6px 1px rgba(0,0,0,.1),
+               0 2px 0 rgb(165, 164, 164),
+               0 3px 0 rgb(121, 121, 121),
+               0 4px 1px rgba(0,0,0,.1),
                0 0 5px rgba(0,0,0,.1),
                0 1px 3px rgba(0,0,0,.3),
                0 3px 5px rgba(0,0,0,.2),
@@ -124,14 +124,25 @@ a {
   margin: 50px;
   padding: 5px;
 }
-.mytitle {
-  text-shadow: var(--text-shadow);
-}
 .title-box {
-  background: #66defc;
+  background-color: #e0dcdc;
 }
 #loadmsg {
+  font-weight:bold;
   font-style: italic;
+  text-shadow: var(--text-shadow);
+}
+
+.mytitle {
+  font-family: fantasy;
+  font-weight:bold;
+  background-color: #666666;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 50px;
+  text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;
 }
 </style>
 
