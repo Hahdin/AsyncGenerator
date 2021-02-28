@@ -17,7 +17,6 @@ npm run dev
 
 
 
-![image](https://user-images.githubusercontent.com/28118038/109402112-653f0a80-7910-11eb-9f5d-3519bd18df0f.png)
-
+![image](https://user-images.githubusercontent.com/28118038/109404257-852afa00-7921-11eb-9fb8-44e60762a9a9.png)
 
 
