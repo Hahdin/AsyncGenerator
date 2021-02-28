@@ -1,17 +1,19 @@
 <template>
-  <div class="jumbotron title-box">
-    <h1 class="mytitle">Async Generator Progress Bar
-    </h1>
-    <hr />
-    <div class="progress container mybar-container" style="width:80%">
-      <div id="bar" class="progress-bar mybar" style="width:0%">
-        {{ precise(state.loaded, 4) }}%
+  <div class="container">
+    <div class="jumbotron title-box">
+      <h1 class="mytitle">Async Generator Progress Bar
+      </h1>
+      <hr />
+      <div class="progress container mybar-container" style="width:80%">
+        <div id="bar" class="progress-bar mybar" style="width:0%">
+          {{ precise(state.loaded, 4) }}%
+        </div>
       </div>
-    </div>
-    <div id='msg' />
-    <div id="loadmsg" hidden="true">
-      Loading... please wait.
-      <span id="spinspan-small" class="spinner-border spinner-border-sm text-success"></span>
+      <div id='msg' />
+      <div id="loadmsg" hidden="true">
+        Loading... please wait.
+        <span id="spinspan-small" class="spinner-border spinner-border-sm text-success"></span>
+      </div>
     </div>
   </div>
 </template>
