@@ -1,10 +1,10 @@
 <template>
-  <div class="jumbotron">
+  <div class="jumbotron title-box">
     <h1 class="mytitle">Async Generator Progress Bar
     </h1>
     <div id="loadmsg" hidden="true">
       Loading... please wait.
-      <span id="spinspan-small" hidden="true" class="spinner-border spinner-border-sm text-success"></span>
+      <span id="spinspan-small" class="spinner-border spinner-border-sm text-success"></span>
     </div>
     <hr />
     <div class="progress container mybar-container" style="width:80%">
@@ -37,8 +37,6 @@ onMounted(hook => {
 const gen = () => {
   let count   = state.max;
   let msg     = document.getElementById('msg');
-  let spin    = document.getElementById('spinspan-small');
-  spin.hidden = false;
 
   async function* progress() {
     while (--count) {
@@ -53,7 +51,6 @@ const gen = () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     msg.innerHTML = `Done: loaded ${state.max} items.`;
-    spin.hidden   = true;
     state.loaded  = 100;
 
     document.getElementById('bar').style.width = `${state.loaded}%`;
@@ -66,7 +63,7 @@ const gen = () => {
       document.documentElement.style.setProperty('--percentage', state.loaded);
       const bar = document.getElementById('bar');
       bar.style.width = `${state.loaded}%`;
-      msg.innerHTML   = `count:  ${val.count} - took ${precise(val.took, 4)}`;
+      msg.innerHTML   = `count:  ${state.max - val.count} - took ${precise(val.took, 4)}`;
       // console.log(msg.innerHTML);
     }
   })();
@@ -80,6 +77,18 @@ const state = reactive({ count: 0, loaded: 0, max: Math.round(Math.random() * 20
   --bar-height: 40px;
   --con-height: 50px;
   --percentage: 0;
+  --text-shadow: 0 1px 0 #ccc, 
+               0 2px 0 #bdbdbd,
+               0 3px 0 rgb(165, 164, 164),
+               0 4px 0 #838181,
+               0 5px 0 rgb(121, 121, 121),
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
 }
 </style>
 <style scoped>
@@ -96,6 +105,7 @@ a {
     rgb(51, 27, 27) 0px 30px 60px -30px,
     rgba(20, 63, 11, 0.979) 0px -2px 6px 0px inset;
   border-radius: var(--rad);
+  color: rgb(255, 253, 253);
 }
 
 .mybar-container {
@@ -107,6 +117,7 @@ a {
 
 #msg {
   font-family: fantasy;
+  background: lightgray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(240, 127, 127, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
@@ -114,9 +125,11 @@ a {
   padding: 5px;
 }
 .mytitle {
-  text-shadow: rgba(61, 61, 61, 0.39) 3px 3px 0px;
+  text-shadow: var(--text-shadow);
 }
-
+.title-box {
+  background: #66defc;
+}
 #loadmsg {
   font-style: italic;
 }
