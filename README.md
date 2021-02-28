@@ -1,6 +1,6 @@
 # AsyncGenerator
 
-Progress bar example using an asyn generator function.
+Progress bar example using an async generator function.
 
 Build with [Vite](https://vitejs.dev/guide/)
 
